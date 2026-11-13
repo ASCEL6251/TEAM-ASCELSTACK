@@ -1,0 +1,567 @@
+---
+import MemberCard from '../components/MemberCard.astro';
+
+const SITE = 'https://ascelstack.com';
+
+const team = [
+  {
+    name: 'Sujoy Moulick', role: 'Founder & Chief Technology Officer', short: 'CTO', layer: 'Build', featured: true,
+    photo: '/team/sujoy-moulick.webp', focus: 'center 22%', email: 'sujoymoulick@ascelstack.com',
+    href: '/sujoy-moulick/',
+  },
+  {
+    name: 'Souvik Chowdhury', role: 'Co-Founder & Chief Financial Officer', short: 'CFO', layer: 'Fund', featured: true,
+    photo: '/team/souvik-chowdhury.webp', focus: 'center 42%', email: 'souvikchowdhury@ascelstack.com',
+  },
+  {
+    name: 'Sanchari Basak', role: 'Chief Executive Officer', short: 'CEO', layer: 'Lead',
+    photo: '/team/sanchari-basak.webp', focus: 'center 30%', email: 'sancharibasak@ascelstack.com',
+  },
+  { name: 'Arnab Basak', role: 'Chief Marketing Officer', short: 'CMO', layer: 'Grow' },
+  { name: 'Somnath Das', role: 'Chief Operating Officer', short: 'COO', layer: 'Run' },
+];
+
+const title = 'Meet Our Team | Ascelstack';
+const description =
+  'Meet the leadership team behind Ascelstack — the people who build the software, drive the growth and run the operations.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Ascelstack',
+  url: SITE,
+  logo: `${SITE}/brand/mark.svg`,
+  founder: { '@type': 'Person', name: 'Sujoy Moulick', jobTitle: 'Founder & Chief Technology Officer' },
+  employee: team.map((m) => ({
+    '@type': 'Person',
+    name: m.name,
+    jobTitle: m.role,
+    ...(m.email && { email: m.email }),
+    ...(m.photo && { image: new URL(m.photo, Astro.site).href }),
+  })),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#1d2d3d" />
+    <link rel="icon" type="image/svg+xml" href="/mark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <noscript
+      ><style>
+        [data-anim], [data-reveal], .s, .stack-labels li { opacity: 1 !important; transform: none !important; }
+      </style></noscript
+    >
+  </head>
+
+  <body>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-anim style="--d:100ms">
+            <span class="rule"></span> Leadership · People · Stack
+          </p>
+          <h1 class="title">
+            <span class="line"><span data-anim style="--d:200ms">The people</span></span>
+            <span class="line"><span data-anim style="--d:320ms">behind every</span></span>
+            <span class="line"><em data-anim style="--d:440ms">layer of the stack.</em></span>
+          </h1>
+          <p class="lead" data-anim style="--d:620ms">
+            Five leaders, one stack. The team at{' '}
+            <a href={SITE} class="inline-link">Ascelstack</a> designs the software, drives the growth and
+            automates the operations — so your business keeps moving when nobody is at the desk.
+          </p>
+        </div>
+
+        <div class="stack" aria-hidden="true">
+          <svg viewBox="0 0 100 100" class="stack-svg">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#b9d6f1" /><stop offset="1" stop-color="#7fa6cc" />
+              </linearGradient>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#6f95ba" /><stop offset="1" stop-color="#3f6488" />
+              </linearGradient>
+              <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#23374b" /><stop offset="1" stop-color="#0c1620" />
+              </linearGradient>
+            </defs>
+            <path class="s s1" d="M50 6 L66 38 L34 38 Z" fill="url(#g1)" />
+            <path class="s s2" d="M32 42 L68 42 L70 46 L80 66 L60 66 L50 46 L40 66 L20 66 L30 46 Z" fill="url(#g2)" />
+            <path class="s s3" d="M18 70 L38 70 L26 94 L6 94 Z M82 70 L62 70 L74 94 L94 94 Z" fill="url(#g3)" />
+          </svg>
+          <div class="stack-shadow"></div>
+          <ul class="stack-labels">
+            <li style="--d:1500ms">Build</li>
+            <li style="--d:1650ms">Grow</li>
+            <li style="--d:1800ms">Run</li>
+          </ul>
+        </div>
+
+        <p class="scroll-cue" data-anim style="--d:1100ms"><span></span> Scroll to meet the team</p>
+      </section>
+
+      <!-- MARQUEE -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          {Array.from({ length: 2 }).map(() => (
+            <span>
+              Software <i>✦</i> Growth <i>✦</i> Operations <i>✦</i> Automation <i>✦</i> Strategy <i>✦</i> Ascelstack <i>✦</i>&nbsp;
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- TEAM -->
+      <section class="team" aria-labelledby="team-h">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow"><span class="rule"></span> Meet our team</p>
+          <h2 id="team-h">Leadership that <em>ships.</em></h2>
+          <p class="section-lead">
+            Founders and operators who own every layer — technology, finance, vision, growth and operations.
+          </p>
+        </header>
+
+        <div class="cards">
+          {team.map((m, i) => <MemberCard {...m} index={i} />)}
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta" data-reveal>
+        <div class="cta-inner">
+          <p class="eyebrow on-ink"><span class="rule"></span> Work with us</p>
+          <h2>Build, grow and run your business on <em>one stack.</em></h2>
+          <a href={SITE} class="btn" title="Ascelstack — Build, grow and run your business on one stack">
+            Visit ascelstack.com
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
+              ><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              ></path></svg
+            >
+          </a>
+        </div>
+        <svg class="cta-mark" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M50 6 L66 38 L34 38 Z" fill="#94BCE3" />
+          <path d="M32 42 L68 42 L70 46 L80 66 L60 66 L50 46 L40 66 L20 66 L30 46 Z" fill="#5980A6" />
+          <path d="M18 70 L38 70 L26 94 L6 94 Z M82 70 L62 70 L74 94 L94 94 Z" fill="#f2f2f3" />
+        </svg>
+      </section>
+
+      <p class="foot">
+        © {new Date().getFullYear()} <a href={SITE}>Ascelstack</a> · Every layer of your business, built to run itself.
+      </p>
+    </main>
+
+    <script>
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Hero intro
+      const markLoaded = () => document.body.classList.add('loaded');
+      requestAnimationFrame(markLoaded);
+      setTimeout(markLoaded, 120); // fallback when rAF is throttled
+
+      // Scroll reveal
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-in');
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+
+      // Cursor glow
+      const glow = document.querySelector<HTMLElement>('.glow');
+      window.addEventListener('pointermove', (e) => {
+        glow?.style.setProperty('--x', `${e.clientX}px`);
+        glow?.style.setProperty('--y', `${e.clientY}px`);
+      });
+
+      // Card tilt + shine
+      if (!reduce && window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((card) => {
+          card.addEventListener('pointermove', (e) => {
+            const r = card.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width;
+            const py = (e.clientY - r.top) / r.height;
+            card.style.transform = `rotateX(${(0.5 - py) * 8}deg) rotateY(${(px - 0.5) * 10}deg) translateY(-6px)`;
+            card.style.setProperty('--mx', `${px * 100}%`);
+            card.style.setProperty('--my', `${py * 100}%`);
+          });
+          card.addEventListener('pointerleave', () => {
+            card.style.transform = '';
+          });
+        });
+      }
+
+      // Scroll parallax: unstack logo layers
+      const layers = document.querySelectorAll<SVGPathElement>('.stack .s');
+      const onScroll = () => {
+        if (reduce) return;
+        const y = Math.min(window.scrollY, 600);
+        layers.forEach((l, i) => {
+          l.style.setProperty('--p', `${(i - 1) * y * 0.06}px`);
+        });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+    </script>
+
+    <style is:global>
+      :root {
+        --ink: #1d2d3d;
+        --accent: #5980a6;
+        --tint: #94bce3;
+        --paper: #f2f2f3;
+        --charcoal: #1d1f20;
+        --ink-deep: #142130;
+        --ink-raised: #23374b;
+        --paper-raised: #fafafb;
+        --paper-sunk: #e8e8ea;
+        --text: #1d1f20;
+        --text-muted: #5d5d60;
+        --text-on-ink: #f2f2f3;
+        --text-on-ink-muted: #9fb0c1;
+        --line: #1d2d3d24;
+        --line-on-ink: #f2f2f31f;
+        --font-display: 'Bacasime Antique', Georgia, 'Times New Roman', serif;
+        --font-body: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+        --fs-eyebrow: 0.75rem;
+        --fs-small: 0.875rem;
+        --fs-body: 1.0625rem;
+        --fs-lead: clamp(1.125rem, 0.9rem + 0.6vw, 1.375rem);
+        --fs-h3: clamp(1.375rem, 1.1rem + 0.8vw, 1.875rem);
+        --fs-h2: clamp(2.25rem, 1.4rem + 3vw, 4.25rem);
+        --fs-h1: clamp(2.75rem, 1.4rem + 5vw, 6.5rem);
+        --gutter: clamp(1rem, 0.5rem + 2.5vw, 3rem);
+        --max: 1320px;
+        --radius: 14px;
+        --radius-l: 28px;
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      *, *::before, *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: var(--fs-body);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      a { color: inherit; }
+      em { font-style: italic; color: var(--accent); }
+      ::selection { background: var(--tint); color: var(--ink-deep); }
+
+      .grid-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background-image:
+          linear-gradient(var(--line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(ellipse 80% 60% at 70% 20%, #000 20%, transparent 75%);
+        opacity: 0.55;
+        animation: gridDrift 40s linear infinite;
+      }
+      @keyframes gridDrift { to { background-position: 56px 56px; } }
+      .glow {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background: radial-gradient(600px circle at var(--x, 70%) var(--y, 30%), #94bce333, transparent 60%);
+        transition: background 0.2s;
+      }
+
+      main {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.9rem;
+        margin: 0 0 1.5rem;
+        font-family: var(--font-mono);
+        font-size: var(--fs-eyebrow);
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .eyebrow.on-ink { color: var(--tint); }
+      .rule { display: inline-block; width: 32px; height: 1px; background: currentColor; }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        position: relative;
+        min-height: 100svh;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+        gap: 2rem;
+        padding: 6rem 0 5rem;
+      }
+      .title {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: var(--fs-h1);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        color: var(--charcoal);
+      }
+      .title .line { display: block; overflow: hidden; padding-bottom: 0.08em; }
+      .title .line > * { display: inline-block; }
+
+      [data-anim] {
+        opacity: 0;
+        transform: translateY(110%);
+        transition:
+          opacity 1s var(--ease-out) var(--d, 0ms),
+          transform 1.2s var(--ease-out) var(--d, 0ms);
+      }
+      .eyebrow[data-anim], .lead[data-anim], .scroll-cue[data-anim] { transform: translateY(24px); }
+      .loaded [data-anim] { opacity: 1; transform: none; }
+
+      .lead {
+        max-width: 34rem;
+        margin: 2rem 0 0;
+        font-size: var(--fs-lead);
+        line-height: 1.55;
+        color: var(--text-muted);
+      }
+      .inline-link {
+        color: var(--ink);
+        font-weight: 600;
+        text-decoration: none;
+        background: linear-gradient(var(--accent), var(--accent)) 0 100% / 100% 1px no-repeat;
+        transition: background-size 0.5s var(--ease-out), color 0.3s;
+      }
+      .inline-link:hover { color: var(--accent); background-size: 100% 2px; }
+
+      /* Stack logo */
+      .stack { position: relative; aspect-ratio: 1; width: 100%; max-width: 520px; justify-self: end; }
+      .stack-svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 30px 40px #1d2d3d33); }
+      .s {
+        transform-box: fill-box;
+        transform-origin: center;
+        opacity: 0;
+        translate: 0 var(--p, 0px);
+      }
+      .loaded .s1 { animation: drop 1.1s var(--ease-out) 0.5s forwards, float 6s ease-in-out 1.8s infinite; }
+      .loaded .s2 { animation: drop 1.1s var(--ease-out) 0.75s forwards, float 6s ease-in-out 2.1s infinite; }
+      .loaded .s3 { animation: drop 1.1s var(--ease-out) 1s forwards, float 6s ease-in-out 2.4s infinite; }
+      @keyframes drop {
+        from { opacity: 0; transform: translateY(-120px) rotate(-4deg); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes float {
+        0%, 100% { opacity: 1; transform: translateY(0); }
+        50% { opacity: 1; transform: translateY(-6px); }
+      }
+      .stack-shadow {
+        position: absolute;
+        left: 15%;
+        right: 5%;
+        bottom: -4%;
+        height: 10%;
+        border-radius: 50%;
+        background: radial-gradient(#1d2d3d40, transparent 70%);
+        filter: blur(10px);
+        animation: shadowPulse 6s ease-in-out infinite;
+      }
+      @keyframes shadowPulse { 50% { transform: scaleX(0.9); opacity: 0.7; } }
+      .stack-labels {
+        position: absolute;
+        right: -0.5rem;
+        top: 30%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 1.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--mist, #9a9aa0);
+      }
+      .stack-labels li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        justify-content: flex-end;
+        opacity: 0;
+        transform: translateX(16px);
+        transition: all 0.9s var(--ease-out) var(--d);
+      }
+      .stack-labels li::after { content: ''; width: 16px; height: 1px; background: currentColor; }
+      .loaded .stack-labels li { opacity: 1; transform: none; }
+
+      .scroll-cue {
+        position: absolute;
+        bottom: 2rem;
+        left: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .scroll-cue span {
+        position: relative;
+        width: 1px;
+        height: 36px;
+        background: var(--line);
+        overflow: hidden;
+      }
+      .scroll-cue span::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--accent);
+        animation: cue 2s var(--ease-out) infinite;
+      }
+      @keyframes cue { from { transform: translateY(-100%); } to { transform: translateY(100%); } }
+
+      /* ---------- Marquee ---------- */
+      .marquee {
+        margin: 0 calc(var(--gutter) * -1);
+        padding: 1.4rem 0;
+        border-block: 1px solid var(--line);
+        overflow: hidden;
+        white-space: nowrap;
+        font-family: var(--font-display);
+        font-size: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+        color: var(--ink);
+      }
+      .marquee-track { display: inline-flex; animation: marquee 32s linear infinite; }
+      .marquee i { font-style: normal; color: var(--accent); margin: 0 1.2rem; font-size: 0.6em; vertical-align: middle; }
+      @keyframes marquee { to { transform: translateX(-50%); } }
+
+      /* ---------- Team ---------- */
+      .team { padding: clamp(5rem, 4rem + 5vw, 9rem) 0 4rem; }
+      .section-head { max-width: 46rem; margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem); }
+      .section-head h2, .cta h2 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: var(--fs-h2);
+        line-height: 1.05;
+        letter-spacing: -0.015em;
+      }
+      .section-lead { margin: 1.25rem 0 0; font-size: var(--fs-lead); color: var(--text-muted); }
+
+      [data-reveal]:not(.card) {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 1s var(--ease-out), transform 1.2s var(--ease-out);
+      }
+      [data-reveal].is-in { opacity: 1; transform: none; }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: clamp(1rem, 0.6rem + 1vw, 1.5rem);
+      }
+
+      /* ---------- CTA ---------- */
+      .cta {
+        position: relative;
+        margin: 4rem 0 2rem;
+        padding: clamp(2.5rem, 2rem + 4vw, 6rem);
+        border-radius: var(--radius-l);
+        background:
+          radial-gradient(circle at 85% 20%, #5980a655, transparent 50%),
+          linear-gradient(150deg, var(--ink-raised), var(--ink-deep));
+        color: var(--text-on-ink);
+        overflow: hidden;
+      }
+      .cta-inner { position: relative; z-index: 1; max-width: 40rem; }
+      .cta em { color: var(--tint); }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 2.5rem;
+        padding: 1rem 1.6rem;
+        border-radius: 999px;
+        background: var(--paper);
+        color: var(--ink-deep);
+        font-weight: 600;
+        text-decoration: none;
+        transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), background 0.3s;
+      }
+      .btn svg { transition: transform 0.5s var(--ease-out); }
+      .btn:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -18px #94bce3aa; background: #fff; }
+      .btn:hover svg { transform: translateX(4px); }
+      .btn:focus-visible, a:focus-visible { outline: 2px solid var(--tint); outline-offset: 3px; }
+      .cta-mark {
+        position: absolute;
+        right: -4%;
+        bottom: -18%;
+        width: clamp(220px, 35vw, 460px);
+        opacity: 0.12;
+        animation: spinSlow 30s linear infinite;
+      }
+      @keyframes spinSlow { 50% { transform: rotate(6deg) translateY(-12px); } }
+
+      .foot {
+        margin: 0;
+        padding: 1.5rem 0 2.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        text-align: center;
+      }
+      .foot a { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; padding-top: 4rem; min-height: auto; }
+        .stack { max-width: 340px; justify-self: center; order: -1; }
+        .stack-labels { display: none; }
+        .scroll-cue { position: static; margin-top: 1rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        .s { opacity: 1; }
+      }
+    </style>
+  </body>
+</html>

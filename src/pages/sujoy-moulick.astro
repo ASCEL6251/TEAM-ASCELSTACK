@@ -1,0 +1,545 @@
+---
+import '../styles/global.css';
+
+const SITE = 'https://ascelstack.com';
+
+const person = {
+  name: 'Sujoy Moulick',
+  role: 'Founder & Chief Technology Officer',
+  photo: '/team/sujoy-moulick.webp',
+  email: 'sujoymoulick@ascelstack.com',
+  phoneDisplay: '+91 89428 41651',
+  phoneHref: 'tel:+918942841651',
+  linkedin: 'https://www.linkedin.com/in/sujoymoulick/',
+};
+
+const contacts = [
+  {
+    label: 'Email',
+    value: person.email,
+    href: `mailto:${person.email}`,
+    icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>',
+  },
+  {
+    label: 'Phone',
+    value: person.phoneDisplay,
+    href: person.phoneHref,
+    icon: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+  },
+  {
+    label: 'LinkedIn',
+    value: 'linkedin.com/in/sujoymoulick',
+    href: person.linkedin,
+    external: true,
+    icon: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>',
+  },
+  {
+    label: 'Company',
+    value: 'ascelstack.com',
+    href: SITE,
+    icon: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  },
+];
+
+const focus = [
+  { t: 'Architecture', d: 'Designing the platforms and systems every Ascelstack product is built on.' },
+  { t: 'Automation', d: 'Turning repetitive operations into workflows that run on their own.' },
+  { t: 'Engineering', d: 'Leading the team that ships software clients rely on every day.' },
+  { t: 'Strategy', d: 'Matching technology choices to where each business needs to go next.' },
+];
+
+const title = `${person.name} — ${person.role} | Ascelstack`;
+const description = `${person.name} is the ${person.role} of Ascelstack. Contact by email, phone or LinkedIn.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: person.name,
+    jobTitle: person.role,
+    email: `mailto:${person.email}`,
+    telephone: '+91-8942841651',
+    image: new URL(person.photo, Astro.site).href,
+    url: new URL('/sujoy-moulick/', Astro.site).href,
+    sameAs: [person.linkedin],
+    worksFor: { '@type': 'Organization', name: 'Ascelstack', url: SITE },
+  },
+};
+
+const arrow =
+  '<svg class="arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:image" content={new URL(person.photo, Astro.site).href} />
+    <meta name="theme-color" content="#1d2d3d" />
+    <link rel="icon" type="image/svg+xml" href="/mark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" as="image" href={person.photo} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <noscript
+      ><style>
+        [data-anim], [data-reveal] { opacity: 1 !important; transform: none !important; }
+      </style></noscript
+    >
+  </head>
+
+  <body>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div>
+
+    <main>
+      <header class="topbar" data-anim style="--d:0ms">
+        <a href="/" class="back">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
+            ><path d="M19 12H5M11 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            ></path></svg
+          >
+          Meet the team
+        </a>
+        <a href={SITE} class="brand" title="Ascelstack">
+          <img src="/mark.svg" alt="" width="26" height="26" />
+          <span>Ascelstack</span>
+        </a>
+      </header>
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-anim style="--d:150ms"><span class="rule"></span> Founder · Ascelstack</p>
+          <h1 data-anim style="--d:260ms">
+            Sujoy<br />Moulick
+          </h1>
+          <p class="role" data-anim style="--d:380ms"><em>{person.role}</em></p>
+          <p class="bio" data-anim style="--d:500ms">
+            Sujoy founded <a href={SITE} class="inline-link">Ascelstack</a> to give businesses one stack for their
+            software, growth and operations. As CTO, Sujoy leads the architecture, engineering and automation behind
+            every product the team ships.
+          </p>
+          <div class="actions" data-anim style="--d:640ms">
+            <a href={`mailto:${person.email}`} class="btn btn-ink">Email Sujoy <Fragment set:html={arrow} /></a>
+            <a href={person.linkedin} class="btn btn-ghost" target="_blank" rel="me noopener">LinkedIn</a>
+            <a href="/sujoy-moulick.vcf" class="btn btn-ghost" download>Save contact</a>
+          </div>
+        </div>
+
+        <!-- 3D photo card -->
+        <div class="p3d-wrap" data-anim style="--d:300ms">
+          <div class="p3d" id="p3d">
+            <figure class="p3d-photo">
+              <img src={person.photo} alt={`${person.name}, ${person.role} at Ascelstack`} width="800" height="1000" />
+            </figure>
+          </div>
+          <div class="p3d-shadow" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <!-- CONNECT -->
+      <section class="connect" aria-labelledby="connect-h">
+        <div class="scene" data-reveal>
+          <canvas id="logo3d" aria-label="Animated 3D Ascelstack logo" role="img"></canvas>
+          <img class="scene-fallback" src="/mark.svg" alt="" aria-hidden="true" />
+          <p class="scene-hint">Hover to unstack</p>
+        </div>
+
+        <div class="connect-copy">
+          <header data-reveal>
+            <p class="eyebrow"><span class="rule"></span> Get in touch</p>
+            <h2 id="connect-h">Let's build <em>something that runs itself.</em></h2>
+          </header>
+
+          <ul class="contacts">
+            {
+              contacts.map((c, i) => (
+                <li data-reveal style={`--d:${i * 90}ms`}>
+                  <a
+                    href={c.href}
+                    class="contact"
+                    data-tilt
+                    {...(c.external ? { target: '_blank', rel: 'me noopener' } : {})}
+                  >
+                    <span class="c-icon">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        set:html={c.icon}
+                      />
+                    </span>
+                    <span class="c-text">
+                      <span class="c-label">{c.label}</span>
+                      <span class="c-value">{c.value}</span>
+                    </span>
+                    <Fragment set:html={arrow} />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+
+      <!-- FOCUS -->
+      <section class="focus" aria-labelledby="focus-h">
+        <header data-reveal>
+          <p class="eyebrow"><span class="rule"></span> Focus areas</p>
+          <h2 id="focus-h">What Sujoy <em>leads.</em></h2>
+        </header>
+        <div class="focus-grid">
+          {
+            focus.map((f, i) => (
+              <article class="focus-card" data-reveal data-tilt style={`--d:${i * 100}ms`}>
+                <span class="f-num">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{f.t}</h3>
+                <p>{f.d}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta" data-reveal>
+        <div class="cta-inner">
+          <p class="eyebrow on-ink"><span class="rule"></span> Ascelstack</p>
+          <h2>Build, grow and run your business on <em>one stack.</em></h2>
+          <a href={SITE} class="btn btn-paper" title="Ascelstack — Build, grow and run your business on one stack"
+            >Visit ascelstack.com <Fragment set:html={arrow} /></a
+          >
+        </div>
+      </section>
+
+      <p class="foot">
+        © {new Date().getFullYear()} <a href={SITE}>Ascelstack</a> · <a href="/">Meet the team</a>
+      </p>
+    </main>
+
+    <script>
+      import { mountLogo3D } from '../scripts/logo3d';
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const canHover = window.matchMedia('(hover: hover)').matches;
+
+      const markLoaded = () => document.body.classList.add('loaded');
+      requestAnimationFrame(markLoaded);
+      setTimeout(markLoaded, 120);
+
+      // Scroll reveal
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-in');
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+
+      // Cursor glow
+      const glow = document.querySelector<HTMLElement>('.glow');
+      window.addEventListener('pointermove', (e) => {
+        glow?.style.setProperty('--x', `${e.clientX}px`);
+        glow?.style.setProperty('--y', `${e.clientY}px`);
+      });
+
+      // 3D photo card: follows pointer, idles when untouched
+      const card = document.getElementById('p3d');
+      if (card && !reduce) {
+        let rx = 0, ry = 0, tx = 0, ty = 0, active = false, t0 = performance.now();
+        const wrap = card.parentElement!;
+        wrap.addEventListener('pointermove', (e) => {
+          const r = wrap.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width;
+          const py = (e.clientY - r.top) / r.height;
+          tx = (0.5 - py) * 22;
+          ty = (px - 0.5) * 26;
+          active = true;
+        });
+        wrap.addEventListener('pointerleave', () => (active = false));
+        const loop = (now: number) => {
+          if (!active) {
+            const s = (now - t0) / 1000;
+            tx = Math.sin(s * 0.7) * 6;
+            ty = Math.sin(s * 0.5) * 10 - 6;
+          }
+          rx += (tx - rx) * 0.08;
+          ry += (ty - ry) * 0.08;
+          card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+          requestAnimationFrame(loop);
+        };
+        requestAnimationFrame(loop);
+      }
+
+      // Tilt on contact + focus cards
+      if (!reduce && canHover) {
+        document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((el) => {
+          el.addEventListener('pointermove', (e) => {
+            const r = el.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width;
+            const py = (e.clientY - r.top) / r.height;
+            el.style.transform = `perspective(800px) rotateX(${(0.5 - py) * 8}deg) rotateY(${(px - 0.5) * 8}deg) translateY(-4px)`;
+          });
+          el.addEventListener('pointerleave', () => (el.style.transform = ''));
+        });
+      }
+
+      // WebGL logo
+      const canvas = document.getElementById('logo3d') as HTMLCanvasElement | null;
+      if (canvas && !mountLogo3D(canvas)) {
+        canvas.closest('.scene')?.classList.add('no-webgl');
+      }
+    </script>
+
+    <style is:global>
+      /* ---------- Top bar ---------- */
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 0;
+      }
+      .back,
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        text-decoration: none;
+      }
+      .back {
+        padding: 0.55rem 1rem 0.55rem 0.8rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #ffffff80;
+        backdrop-filter: blur(8px);
+        font-size: var(--fs-small);
+        font-weight: 500;
+        color: var(--ink);
+        transition: background 0.3s, border-color 0.3s, transform 0.5s var(--ease-out);
+      }
+      .back svg { transition: transform 0.5s var(--ease-out); }
+      .back:hover { background: #fff; border-color: var(--accent); }
+      .back:hover svg { transform: translateX(-3px); }
+      .brand span { font-family: var(--font-display); font-size: 1.35rem; color: var(--ink); }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: center;
+        gap: clamp(2rem, 1rem + 4vw, 5rem);
+        min-height: calc(100svh - 90px);
+        padding: 2rem 0 5rem;
+      }
+      .hero h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: var(--fs-h1);
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+        color: var(--charcoal);
+      }
+      .role { margin: 1rem 0 0; font-family: var(--font-display); font-size: var(--fs-h3); }
+      .bio { max-width: 34rem; margin: 1.75rem 0 0; font-size: var(--fs-lead); line-height: 1.55; color: var(--text-muted); }
+      .inline-link {
+        color: var(--ink);
+        font-weight: 600;
+        text-decoration: none;
+        background: linear-gradient(var(--accent), var(--accent)) 0 100% / 100% 1px no-repeat;
+        transition: color 0.3s;
+      }
+      .inline-link:hover { color: var(--accent); }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.25rem; }
+
+      /* 3D photo card */
+      .p3d-wrap {
+        position: relative;
+        perspective: 1400px;
+        justify-self: center;
+        width: min(100%, 440px);
+        padding: 2rem 1.5rem 3rem;
+      }
+      .p3d {
+        position: relative;
+        aspect-ratio: 4 / 5;
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+      .p3d > * { position: absolute; }
+      .p3d-photo {
+        inset: 0;
+        margin: 0;
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: 0 40px 80px -30px #1d2d3d99;
+      }
+      .p3d-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; display: block; }
+      .p3d-shadow {
+        position: absolute;
+        left: 18%;
+        right: 18%;
+        bottom: 0;
+        height: 28px;
+        border-radius: 50%;
+        background: radial-gradient(#1d2d3d55, transparent 70%);
+        filter: blur(12px);
+      }
+      @keyframes bob { 50% { translate: 0 -8px; } }
+
+      /* ---------- Connect ---------- */
+      .connect {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 1rem + 4vw, 5rem);
+        align-items: center;
+        padding: clamp(4rem, 3rem + 4vw, 8rem) 0;
+        border-top: 1px solid var(--line);
+      }
+      .scene {
+        position: relative;
+        aspect-ratio: 1;
+        border-radius: var(--radius-l);
+        background:
+          radial-gradient(circle at 50% 45%, #94bce344, transparent 60%),
+          linear-gradient(160deg, #fafafb, #e8e8ea);
+        border: 1px solid var(--line);
+        overflow: hidden;
+        cursor: grab;
+      }
+      .scene canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+      .scene-fallback { display: none; }
+      .no-webgl .scene-fallback {
+        display: block;
+        position: absolute;
+        inset: 25%;
+        width: 50%;
+        animation: bob 5s ease-in-out infinite;
+      }
+      .scene-hint {
+        position: absolute;
+        left: 50%;
+        bottom: 1.25rem;
+        translate: -50% 0;
+        margin: 0;
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .connect h2,
+      .focus h2,
+      .cta h2 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: var(--fs-h2);
+        line-height: 1.05;
+        letter-spacing: -0.015em;
+      }
+      .contacts { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; gap: 0.85rem; }
+      .contact {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.1rem 1.25rem;
+        border-radius: 18px;
+        background: var(--paper-raised);
+        border: 1px solid var(--line);
+        text-decoration: none;
+        box-shadow: 0 1px 0 #fff inset, 0 20px 40px -32px #1d2d3d66;
+        transition: transform 0.5s var(--ease-out), border-color 0.3s, box-shadow 0.5s var(--ease-out);
+      }
+      .contact:hover { border-color: var(--accent); box-shadow: 0 1px 0 #fff inset, 0 28px 50px -30px #1d2d3d88; }
+      .c-icon {
+        flex: none;
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background: var(--ink);
+        color: var(--tint);
+        transition: background 0.3s, transform 0.5s var(--ease-out);
+      }
+      .contact:hover .c-icon { background: var(--accent); color: #fff; transform: rotate(-6deg) scale(1.05); }
+      .c-text { display: grid; min-width: 0; flex: 1; }
+      .c-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+      .c-value { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+      .contact .arrow { color: var(--accent); transition: transform 0.5s var(--ease-out); }
+      .contact:hover .arrow { transform: translateX(4px); }
+
+      /* ---------- Focus ---------- */
+      .focus { padding: 0 0 clamp(4rem, 3rem + 4vw, 7rem); }
+      .focus header { margin-bottom: 2.5rem; }
+      .focus-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+      .focus-card {
+        padding: 1.75rem 1.5rem;
+        border-radius: var(--radius-l);
+        background: var(--paper-raised);
+        border: 1px solid var(--line);
+        transition: transform 0.5s var(--ease-out), background 0.5s, color 0.5s, opacity 1s var(--ease-out) var(--d, 0ms);
+      }
+      .focus-card:hover { background: var(--ink); color: var(--text-on-ink); }
+      .f-num { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.2em; color: var(--accent); }
+      .focus-card:hover .f-num { color: var(--tint); }
+      .focus-card h3 { margin: 2.5rem 0 0.5rem; font-family: var(--font-display); font-weight: 400; font-size: var(--fs-h3); }
+      .focus-card p { margin: 0; font-size: var(--fs-small); color: var(--text-muted); transition: color 0.5s; }
+      .focus-card:hover p { color: var(--text-on-ink-muted); }
+
+      /* ---------- CTA ---------- */
+      .cta {
+        position: relative;
+        margin: 0 0 2rem;
+        padding: clamp(2.5rem, 2rem + 4vw, 6rem);
+        border-radius: var(--radius-l);
+        background:
+          radial-gradient(circle at 85% 20%, #5980a655, transparent 50%),
+          linear-gradient(150deg, var(--ink-raised), var(--ink-deep));
+        color: var(--text-on-ink);
+        overflow: hidden;
+      }
+      .cta-inner { max-width: 40rem; }
+      .cta em { color: var(--tint); }
+      .cta .btn { margin-top: 2.5rem; }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 960px) {
+        .hero, .connect { grid-template-columns: 1fr; }
+        .hero { min-height: auto; padding-top: 1rem; }
+        .p3d-wrap { order: -1; width: min(100%, 360px); }
+        .focus-grid { grid-template-columns: repeat(2, 1fr); }
+        .scene { max-width: 520px; width: 100%; justify-self: center; }
+      }
+      @media (max-width: 560px) {
+        .focus-grid { grid-template-columns: 1fr; }
+        .brand span { display: none; }
+      }
+    </style>
+  </body>
+</html>

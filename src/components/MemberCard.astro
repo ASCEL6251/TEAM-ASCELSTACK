@@ -1,0 +1,358 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  short: string;
+  layer: string;
+  index: number;
+  featured?: boolean;
+  photo?: string;
+  focus?: string;
+  email?: string;
+  href?: string;
+}
+const { name, role, short, layer, index, featured = false, photo, focus = 'center 25%', email, href } = Astro.props;
+const initials = name
+  .split(' ')
+  .map((p) => p[0])
+  .join('');
+const num = String(index + 1).padStart(2, '0');
+---
+
+<article
+  class:list={['card', { featured }]}
+  data-reveal
+  style={`--d:${index * 110}ms`}
+  itemscope
+  itemtype="https://schema.org/Person"
+>
+  <div class="card-inner" data-tilt>
+    <div class="card-top">
+      <span class="num">{num}</span>
+      <span class="layer">{layer}</span>
+    </div>
+
+    {
+      photo ? (
+        <div class="monogram has-photo">
+          <img
+            src={photo}
+            alt={`${name}, ${role} at Ascelstack`}
+            style={`object-position:${focus}`}
+            loading={index < 2 ? 'eager' : 'lazy'}
+            decoding="async"
+            width="800"
+            height="1000"
+            itemprop="image"
+          />
+        </div>
+      ) : (
+        <div class="monogram" aria-hidden="true">
+          <svg viewBox="0 0 100 100" class="mono-mark">
+            <path class="m1" d="M50 6 L66 38 L34 38 Z" />
+            <path class="m2" d="M32 42 L68 42 L70 46 L80 66 L60 66 L50 46 L40 66 L20 66 L30 46 Z" />
+            <path class="m3" d="M18 70 L38 70 L26 94 L6 94 Z M82 70 L62 70 L74 94 L94 94 Z" />
+          </svg>
+          <span class="initials">{initials}</span>
+        </div>
+      )
+    }
+
+    <div class="card-body">
+      <p class="short">{short}</p>
+      <h3 class="name" itemprop="name">
+        {href ? <a href={href} class="profile-link">{name}</a> : name}
+      </h3>
+      <p class="role" itemprop="jobTitle">{role}</p>
+      {
+        email && (
+          <a class="email" href={`mailto:${email}`} itemprop="email">
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6" />
+              <path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>{email}</span>
+          </a>
+        )
+      }
+      {
+        href && (
+          <span class="view" aria-hidden="true">
+            View full profile
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        )
+      }
+    </div>
+
+    <span class="shine" aria-hidden="true"></span>
+  </div>
+</article>
+
+<style>
+  .card {
+    grid-column: span 2;
+    perspective: 1000px;
+    opacity: 0;
+    transform: translateY(48px);
+    transition:
+      opacity 0.9s var(--ease-out) var(--d),
+      transform 1.1s var(--ease-out) var(--d);
+  }
+  .card.featured {
+    grid-column: span 3;
+  }
+  .card.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .card-inner {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+    border-radius: var(--radius-l);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    box-shadow:
+      0 1px 0 #fff inset,
+      0 30px 60px -40px #1d2d3d55;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition:
+      transform 0.6s var(--ease-out),
+      box-shadow 0.6s var(--ease-out),
+      background 0.6s var(--ease-out);
+    will-change: transform;
+  }
+  .featured .card-inner {
+    background: linear-gradient(160deg, var(--ink-raised), var(--ink-deep));
+    color: var(--text-on-ink);
+    border-color: var(--line-on-ink);
+  }
+  .card-inner:hover {
+    box-shadow:
+      0 1px 0 #fff inset,
+      0 40px 80px -40px #1d2d3d88;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .featured .card-top {
+    color: var(--tint);
+  }
+  .layer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .layer::before {
+    content: '';
+    width: 22px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.6s var(--ease-out);
+  }
+  .card-inner:hover .layer::before {
+    width: 40px;
+  }
+
+  .monogram {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius);
+    background:
+      radial-gradient(circle at 50% 40%, #94bce333, transparent 65%),
+      repeating-linear-gradient(0deg, transparent 0 27px, var(--line) 27px 28px),
+      repeating-linear-gradient(90deg, transparent 0 27px, var(--line) 27px 28px),
+      var(--paper-sunk);
+    overflow: hidden;
+    transform: translateZ(30px);
+  }
+  .featured .monogram {
+    background:
+      radial-gradient(circle at 50% 40%, #5980a655, transparent 65%),
+      repeating-linear-gradient(0deg, transparent 0 27px, var(--line-on-ink) 27px 28px),
+      repeating-linear-gradient(90deg, transparent 0 27px, var(--line-on-ink) 27px 28px),
+      #0f1a26;
+  }
+  .mono-mark {
+    position: absolute;
+    width: 46%;
+    opacity: 0.16;
+    overflow: visible;
+  }
+  .mono-mark path {
+    transition: transform 0.8s var(--ease-out);
+  }
+  .m1 { fill: var(--tint); }
+  .m2 { fill: var(--accent); }
+  .m3 { fill: var(--ink); }
+  .featured .m3 { fill: var(--tint); }
+  .card-inner:hover .m1 { transform: translateY(-10px); }
+  .card-inner:hover .m3 { transform: translateY(10px); }
+
+  .initials {
+    position: relative;
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 2.5rem + 3vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    transition: transform 0.8s var(--ease-out), letter-spacing 0.8s var(--ease-out);
+  }
+  .featured .initials {
+    color: var(--paper);
+  }
+  .card:not(.featured) .monogram {
+    aspect-ratio: 4 / 5;
+  }
+  .monogram.has-photo {
+    background: var(--paper-sunk);
+  }
+  .featured .monogram.has-photo {
+    aspect-ratio: 5 / 4;
+    background: #0f1a26;
+  }
+  .has-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.85) contrast(1.02);
+    transform: scale(1.04);
+    transition: transform 1.2s var(--ease-out), filter 0.8s var(--ease-out);
+  }
+  .has-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, #142130aa);
+    opacity: 0.6;
+    transition: opacity 0.8s var(--ease-out);
+    pointer-events: none;
+  }
+  .card-inner:hover .has-photo img {
+    transform: scale(1.1);
+    filter: saturate(1) contrast(1.05);
+  }
+  .card-inner:hover .has-photo::after { opacity: 0.25; }
+
+  .profile-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  /* Whole card is clickable; email stays its own link above it */
+  .profile-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .profile-link:focus-visible { outline: none; }
+  .card-inner:has(.profile-link:focus-visible) { outline: 2px solid var(--tint); outline-offset: 4px; }
+  .card-inner:has(.profile-link) { cursor: pointer; }
+  .view {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--tint);
+  }
+  .view svg { transition: transform 0.5s var(--ease-out); }
+  .card-inner:hover .view svg { transform: translateX(5px); }
+
+  .email {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    max-width: 100%;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.2rem;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .email span { overflow-wrap: anywhere; }
+  .email svg { flex: none; color: var(--accent); }
+  .email:hover { color: var(--accent); border-color: var(--accent); }
+  .featured .email { color: var(--text-on-ink); border-color: var(--line-on-ink); }
+  .featured .email svg { color: var(--tint); }
+  .featured .email:hover { color: var(--tint); border-color: var(--tint); }
+
+  .card-inner:hover .initials {
+    transform: scale(1.06);
+    letter-spacing: 0.04em;
+  }
+
+  .card-body {
+    margin-top: auto;
+  }
+  .short {
+    margin: 0 0 0.4rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-small);
+    color: var(--accent);
+  }
+  .featured .short { color: var(--tint); }
+  .name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--fs-h3);
+    line-height: 1.1;
+  }
+  .role {
+    margin: 0.35rem 0 0;
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+  .featured .role { color: var(--text-on-ink-muted); }
+
+  .shine {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      #ffffff40,
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .featured .shine {
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), #94bce326, transparent 45%);
+  }
+  .card-inner:hover .shine { opacity: 1; }
+
+  @media (max-width: 900px) {
+    .card, .card.featured { grid-column: span 3; }
+  }
+  @media (max-width: 620px) {
+    .card, .card.featured { grid-column: 1 / -1; }
+  }
+</style>
