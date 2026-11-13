@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page not found | Ascelstack</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/mark.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <main class="nf">
+      <img src="/mark.svg" alt="" width="72" height="72" class="nf-mark" />
+      <p class="eyebrow"><span class="rule"></span> Error 404</p>
+      <h1>This layer <em>doesn't exist.</em></h1>
+      <p class="nf-lead">The page you're looking for has moved or never existed.</p>
+      <a href="/" class="btn btn-ink">Meet the team</a>
+    </main>
+
+    <style>
+      .nf {
+        min-height: 100svh;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      .nf-mark { margin-bottom: 1.5rem; animation: float 5s ease-in-out infinite; }
+      .nf h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: var(--fs-h2);
+        line-height: 1.05;
+      }
+      .nf-lead { margin: 1rem 0 2rem; color: var(--text-muted); }
+      @keyframes float { 50% { transform: translateY(-10px); } }
+    </style>
+  </body>
+</html>

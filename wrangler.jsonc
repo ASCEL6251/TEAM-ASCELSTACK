@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ascelstack-team",
+  "compatibility_date": "2026-11-01",
+
+  // Static site: Astro builds to ./dist and Workers serves it as assets (no Worker script needed)
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+
+  "workers_dev": true,
+  "preview_urls": true,
+
+  "observability": {
+    "enabled": true
+  }
+
+  // Custom domain: uncomment and set once the domain is on Cloudflare
+  // "routes": [{ "pattern": "team.ascelstack.com", "custom_domain": true }]
+}
